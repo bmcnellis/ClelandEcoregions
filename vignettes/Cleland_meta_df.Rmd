@@ -1,0 +1,81 @@
+---
+title: "Cleland Metadata Dataframe"
+author: "Brandon McNellis"
+date: "August 2018"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Generates a metadata dataframe from the Cleland 2007 data. Data source is `Cleland2007_eco_map.Rdata`, documented as a dataset in this package.
+
+The detailed descriptions end up truncated here, but they're intact in the original data file if you really need them.
+
+This vignette is for documentation purposes, I haven't bothered to try to knit it.
+
+```{r setup, echo = F}
+library(devtools)
+data(Cleland2007_eco_map)
+```
+
+```{r script, echo = T}
+# Prepare the output dataframe:
+data <- matrix(ncol = 11, nrow = length(subsect$MAP_UNIT_S))
+data <- data.frame(data, stringsAsFactors = F)
+colnames(data) <- c(
+  'province_id', 'province_name', 'province_code', 'province_description', 
+  'section_id', 'section_code', 'section_name', 'section_description', 
+  'subsection_id', 'subsection_code', 'subsection_name'
+  )
+# Pull subsections:
+ubsect <- Cleland2007_eco_map[[3]]
+data[, 9] <- as.numeric(subsect$SUBSECTION)
+data[, 10] <- as.character(subsect$MAP_UNIT_S)
+data[, 11] <- as.character(subsect$MAP_UNIT_N)
+# Create section codes:
+data[, 6] <- SnipSingleCharacter(data[, 10], side = 'back')
+# Check section codes against raw data
+section_info <- data.frame(lapply(data.frame(
+  Cleland2007_eco_map[[2]]$MAP_UNIT_S, 
+  Cleland2007_eco_map[[2]]$MAP_UNIT_N,
+  Cleland2007_eco_map[[2]]$MAP_UNIT_D,
+  Cleland2007_eco_map[[2]]$SECTION_
+), as.character), stringsAsFactors = F)
+section_info[, 4] <- as.numeric(section_info[, 4])
+trim_indx <- which(!(data[, 6] %in% section_info[, 1]))
+data[trim_indx, 6] <- SnipSingleCharacter(data[trim_indx, 6], side = 'back')
+# Last one left is just water, return it to its default value:
+data[736, 6] <- 'Water'
+trim_indx <- which(!(data[, 6] %in% section_info[, 1]))
+stopifnot(length(trim_indx) < 1)
+section_indx <- match(data[, 6], section_info[, 1])
+data[, 7] <- section_info[, 2][section_indx]
+data[, 8] <- section_info[, 3][section_indx]
+data[, 5] <- section_info[, 4][section_indx]
+# Now do province:
+data[, 3] <- SnipSingleCharacter(data[, 6], side = 'back')
+province_info <- data.frame(lapply(data.frame(
+  Cleland2007_eco_map[[1]]$MAP_UNIT_S, 
+  Cleland2007_eco_map[[1]]$MAP_UNIT_N,
+  Cleland2007_eco_map[[1]]$MAP_UNIT_D
+), as.character), stringsAsFactors = F)
+trim_indx <- which(!(data[, 3] %in% province_info[, 1]))
+# Water was the only broken one this time:
+data[736, 3] <- 'Water'
+province_indx <- match(data$province_code, province_info[, 1])
+data[, 2] <- province_info[, 2][province_indx]
+data[, 4] <- province_info[, 3][province_indx]
+# Add on division and domain:
+colnames(data)[1] <- 'division'
+division <- as.character(Cleland2007_eco_map[[1]]$DIVISION_N)
+data$division <- division[province_indx]
+domain <- as.character(Cleland2007_eco_map[[1]]$DOMAIN_NAM)
+domain <- domain[province_indx]
+# Make the final .Rdata file:
+data <- data.frame(domain, data, stringsAsFactors = F)
+Cleland_meta_df <- data
+devtools::use_data(Cleland_meta_df)
+```
+
