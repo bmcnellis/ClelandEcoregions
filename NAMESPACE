@@ -3,4 +3,5 @@
 export(KeyClelandCode)
 export(NameClelandCode)
 export(ScaleUpClelandCode)
+export(ScaleUpClelandName)
 export(SnipSingleCharacter)

@@ -47,6 +47,7 @@ KeyClelandCode <- function(x, lvl = 'province', long = F, rev = F) {
 #' @export
 ScaleUpClelandCode <- function(x, in_lvl = 'subsection', out_lvl = 'section') {
   # Scaling subsection to section:
+  mdf <- ClelandEcoregions::Cleland_meta_df
   if (in_lvl == 'subsection') {
     a0 <- sapply(strsplit(x, ''), function(z) z[1:(length(z) - 1)])
     a1 <- sapply(a0, function(z) paste(z, collapse = ''))
@@ -58,36 +59,96 @@ ScaleUpClelandCode <- function(x, in_lvl = 'subsection', out_lvl = 'section') {
       r
     })
   }
-  if (all(x %in% Cleland_meta_df$section_code)) {
+  if (all(x %in% mdf$section_code)) {
     if (out_lvl == 'section') {
       return(x)
     }
   } else {
-    stop('section scaling failed')
+    stop('section scaling failed - check to make sure input is CODE, not NAME')
   }
 
   # Scaling section to province:
   b0 <- sapply(strsplit(x, ''), function(z) z[1:(length(z) - 1)])
   b1 <- sapply(b0, function(z) paste(z, collapse = ''))
   x <- b1
-  if (all(x %in% Cleland_meta_df$province_code)) {
+  if (all(x %in% mdf$province_code)) {
     if (out_lvl == 'province') {
       return(x)
     }
   } else {
-    stop('province scaling failed')
+    stop('province scaling failed - make sure input is CODE, not NAME')
   }
   stop('scaling failed - bad inputs?')
   invisible()
 }
+#' @describeIn utils Scales up Cleland name by 1 level
+#' @export
+ScaleUpClelandName <- function(x, in_lvl = 'subsection', debug = F, belt = 'M332D') {
+  mdf <- ClelandEcoregions::Cleland_meta_df
+  z <- character(length(x))
+  im <- character()
+  oc <- character()
+  bw <- 1
+  if (in_lvl == 'subsection') {
+    im <- 'subsection_name'
+    oc <- 'section_code'
+    kl <- 'section'
+  } else if (in_lvl == 'section') {
+    im <- 'section_name'
+    oc <- 'province_code'
+    kl <- 'province'
+  } else {
+    if (debug) browser()
+    stop('Bad in_lvl input (set debug = T?)')
+  }
+  for (i in 1:length(x)) {
+    if (x[i] == 'Belt Mountains') {
+      if (!(in_lvl == 'section')) {
+        if (debug) browser()
+        stop('Belt Mountain exception broke')
+      }
+      if (as.logical(bw)) {
+        belt_warn <- paste0('Belt Mountains is a section in 2 provs, keying as ', belt)
+        bw <- bw - 1
+        warning(belt_warn)
+      }
+      if (belt == 'M332D') {
+        z[i] <- mdf$province_code[which(mdf$section_code == 'M332D')[1]] 
+      } else if (belt == '331N') {
+        z[i] <- mdf$province_code[which(mdf$section_code == '331N')[1]]
+      } else {
+        if (debug) browser()
+        stop('Bad belt input')
+      }
+      if (debug) if (is.na(z[i])) browser() 
+      next
+    }
+    xx <- paste0('^', x[i], '$')
+    uq <- unique(mdf[[oc]][grep(xx, mdf[[im]])])
+    if (length(uq) == 1) {
+      if (debug) if (is.na(z[i])) browser()
+      z[i] <- uq
+    } else {
+      if (debug) browser()
+      stop('Name grep failed (set debug = T?)')
+    }
+  }
+  zz <- ClelandEcoregions::KeyClelandCode(z, lvl = kl)
+  if (all(!(any(is.na(z))), any(is.na(zz)))) {
+    if (debug) browser()
+    stop('introduced NAs with KeyClelandCode')
+  }
+  zz
+}
 #' @describeIn utils Prints the Cleland subsection name for a code
 #' @export
 NameClelandCode <- function(code) {
-  m <- which(Cleland_meta_df$subsection_code == code)
+  mdf <- ClelandEcoregions::Cleland_meta_df
+  m <- which(mdf$subsection_code == code)
   if (length(m) == 0) stop('Cleland code not found')
-  cat('\nSubsection name:', Cleland_meta_df$subsection_name[m[1]])
-  cat('\nSection name:', Cleland_meta_df$section_name[m[1]])
-  cat('\nProvince name:', Cleland_meta_df$province_name[m[1]])
+  cat('\nSubsection name:', mdf$subsection_name[m[1]])
+  cat('\nSection name:', mdf$section_name[m[1]])
+  cat('\nProvince name:', mdf$province_name[m[1]])
   invisible()
 }
 #' @describeIn utils Rrims a character by 1 character for each element

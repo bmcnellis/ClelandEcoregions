@@ -4,6 +4,7 @@
 \alias{utils}
 \alias{KeyClelandCode}
 \alias{ScaleUpClelandCode}
+\alias{ScaleUpClelandName}
 \alias{NameClelandCode}
 \alias{SnipSingleCharacter}
 \title{Small utility functions for Cleland Ecoregions}
@@ -11,6 +12,9 @@
 KeyClelandCode(x, lvl = "province", long = F, rev = F)
 
 ScaleUpClelandCode(x, in_lvl = "subsection", out_lvl = "section")
+
+ScaleUpClelandName(x, in_lvl = "subsection", debug = F,
+  belt = "M332D")
 
 NameClelandCode(code)
 
@@ -25,6 +29,8 @@ when working with the ClelandEcoregions dataset.
 \item \code{KeyClelandCode}: Key function for the FIA codes
 
 \item \code{ScaleUpClelandCode}: Scales up the Cleland code
+
+\item \code{ScaleUpClelandName}: Scales up Cleland name by 1 level
 
 \item \code{NameClelandCode}: Prints the Cleland subsection name for a code
 
