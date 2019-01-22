@@ -10,7 +10,7 @@ NULL
 #' @describeIn utils Key function for the FIA codes
 #' @export
 KeyClelandCode <- function(x, lvl = 'province', long = F, rev = F) {
-  out_df <- data.frame()
+  out_df <- data.frame(stringsAsFactors = F)
   if (lvl == 'province') {
     df <- Cleland_meta_df[, c('province_code', 'province_name')]
     if (rev) {
@@ -111,6 +111,7 @@ ScaleUpClelandName <- function(x, in_lvl = 'subsection', debug = F, belt = 'M332
         belt_warn <- paste0('Belt Mountains is a section in 2 provs, keying as ', belt)
         bw <- bw - 1
         warning(belt_warn)
+        cat('\n')
       }
       if (belt == 'M332D') {
         z[i] <- mdf$province_code[which(mdf$section_code == 'M332D')[1]] 
