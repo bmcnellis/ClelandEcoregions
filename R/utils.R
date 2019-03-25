@@ -167,3 +167,27 @@ SnipSingleCharacter <- function(v, side = 'front') {
   y <- lapply(y, function(x) paste(x, collapse = ''))
   return(unlist(y))
 }
+#' @describeIn utils Scales down Cleland code
+#' @export
+ScaleDownClelandCode <- function(x, in_lvl = 'province', out_lvl = 'subsection') {
+
+  mdf0 <- ClelandEcoregions::Cleland_meta_df
+  mdf <- mdf0
+  xx <- x
+  if (in_lvl == 'province') {
+    mdf <- mdf[which(mdf$province_code %in% xx), ]
+    xx <- mdf[, 'section_code']
+    if (out_lvl == 'section') {
+      return(mdf[, c('province_code', 'section_code')])
+    }
+  }
+  
+  if (out_lvl == 'subsection') {
+    mdf <- mdf[which(mdf$section_code %in% xx), ]
+    return(mdf[, c('province_code', 'section_code', 'subsection_code')])
+  } else {
+    return(mdf[, c('province_code', 'section_code', 'subsection_code')])
+  }
+  
+  stop('scaling failed')
+}

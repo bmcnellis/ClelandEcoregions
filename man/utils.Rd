@@ -7,6 +7,7 @@
 \alias{ScaleUpClelandName}
 \alias{NameClelandCode}
 \alias{SnipSingleCharacter}
+\alias{ScaleDownClelandCode}
 \title{Small utility functions for Cleland Ecoregions}
 \usage{
 KeyClelandCode(x, lvl = "province", long = F, rev = F)
@@ -19,6 +20,8 @@ ScaleUpClelandName(x, in_lvl = "subsection", debug = F,
 NameClelandCode(code)
 
 SnipSingleCharacter(v, side = "front")
+
+ScaleDownClelandCode(x, in_lvl = "province", out_lvl = "subsection")
 }
 \description{
 Some functions that are required for package processing or just useful to have
@@ -35,5 +38,7 @@ when working with the ClelandEcoregions dataset.
 \item \code{NameClelandCode}: Prints the Cleland subsection name for a code
 
 \item \code{SnipSingleCharacter}: Rrims a character by 1 character for each element
+
+\item \code{ScaleDownClelandCode}: Scales down Cleland code
 }}
 

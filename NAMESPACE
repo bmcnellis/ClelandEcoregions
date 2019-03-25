@@ -2,6 +2,7 @@
 
 export(KeyClelandCode)
 export(NameClelandCode)
+export(ScaleDownClelandCode)
 export(ScaleUpClelandCode)
 export(ScaleUpClelandName)
 export(SnipSingleCharacter)
