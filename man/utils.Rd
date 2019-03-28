@@ -8,6 +8,7 @@
 \alias{NameClelandCode}
 \alias{SnipSingleCharacter}
 \alias{ScaleDownClelandCode}
+\alias{SubAsIntger}
 \title{Small utility functions for Cleland Ecoregions}
 \usage{
 KeyClelandCode(x, lvl = "province", long = F, rev = F)
@@ -22,6 +23,8 @@ NameClelandCode(code)
 SnipSingleCharacter(v, side = "front")
 
 ScaleDownClelandCode(x, in_lvl = "province", out_lvl = "subsection")
+
+SubAsIntger(x, rev = F)
 }
 \description{
 Some functions that are required for package processing or just useful to have
@@ -40,5 +43,7 @@ when working with the ClelandEcoregions dataset.
 \item \code{SnipSingleCharacter}: Rrims a character by 1 character for each element
 
 \item \code{ScaleDownClelandCode}: Scales down Cleland code
+
+\item \code{SubAsIntger}: Cleland subsection integer key for .nc storage
 }}
 
