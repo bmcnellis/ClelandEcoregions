@@ -193,7 +193,7 @@ ScaleDownClelandCode <- function(x, in_lvl = 'province', out_lvl = 'subsection')
 }
 #' @describeIn utils Cleland subsection integer key for .nc storage
 #' @export
-SubAsIntger <- function(x, rev = F) {
+SubAsIntger <- function(x) {
   full_subs <- unique(ClelandEcoregions::Cleland_meta_df$subsection_code)
   full_subs <- full_subs[order(full_subs)]
   if (is.integer(x)) {
