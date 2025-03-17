@@ -5,7 +5,7 @@
 \alias{Cleland2007_eco_map}
 \title{Ecological subsection maps, from Cleland et al. (2007).}
 \format{
-A list of three SpatialPolygonDataFrames.
+A list of three simple features objects (class "sf").
 \describe{
   \item{province}{Province-level polygons}
   \item{sections}{Section-level polygons}

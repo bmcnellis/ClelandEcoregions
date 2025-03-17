@@ -29,7 +29,7 @@ Cleland_meta_df
 Zone metadata pulled from 'Cleland2007_eco_map'.
 }
 \details{
-See `Cleland_meta_df.Rmd` for details on making this dataset, although
-its a hot mess so good luck with that.
+See `Cleland_meta_df.Rmd` for details on generating this dataset. Not
+updated when data format was changed to 'sf'.
 }
 \keyword{datasets}
