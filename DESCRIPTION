@@ -1,15 +1,12 @@
 Package: ClelandEcoregions
 Title: Data package for FIA Ecoregions
-Version: 1.2
-Authors@R: person("Brandon", "McNellis", email = "first.last@example.com", role = c("aut", "cre"))
+Version: 2.0
+Authors@R: person("Brandon", "McNellis", email = "brandon.mcnellis@gmail.com", role = c("aut", "cre"))
 Description: See USFS General Technical Report WO-76D
-Depends: R (>= 3.4.4)
+Depends: R (>= 4.4.1)
 Imports:
-  devtools (>= 1.13),
-  raster (>= 2.6),
-  rgdal (>= 1.3),
-  sp (>= 1.3)
-License: GPL-3
+  sf (>= 1.0)
+License: CC-BY-SA 2.0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.3.2

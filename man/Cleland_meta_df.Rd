@@ -4,7 +4,8 @@
 \name{Cleland_meta_df}
 \alias{Cleland_meta_df}
 \title{Cleland 2007 Province/Section/Subsection Names/Code Info}
-\format{A data.frame of 12 columns and 1233 rows, where each row corresponds
+\format{
+A data.frame of 12 columns and 1233 rows, where each row corresponds
         to a single named subsection.
 \describe{
   \item{domain}{Dry, Humid Temperate, Humid Tropical, or Water}
@@ -19,7 +20,8 @@
   \item{subsection_id}{Subsection ID #, shortest name}
   \item{subsection_name}{Short name of subsection}
   \item{subsection_code}{USFS Subection Code, see `ECOSUBCD`` in FIA data}
-}}
+}
+}
 \usage{
 Cleland_meta_df
 }

@@ -1,8 +1,5 @@
 #' Ecological subsection maps, from Cleland et al. (2007).
 #'
-#' Requires `rgdal`, probably. Check the references and their online
-#' supplements for further details on the objects.
-#'
 #' @references
 #' Cleland, D.T., Freeouf, J.A., Keys, J.E., Nowacki, G.J., Carpenter, C.A.,
 #'     McNab, W.H., 2007. Ecological Subregions: Sections and Subsections for
@@ -17,7 +14,7 @@
 #'
 #' @name Cleland2007_eco_map
 #' @docType data
-#' @format A list of three SpatialPolygonDataFrames.
+#' @format A list of three simple features objects (class "sf").
 #' \describe{
 #'   \item{province}{Province-level polygons}
 #'   \item{sections}{Section-level polygons}
@@ -28,8 +25,8 @@
 #'
 #' Zone metadata pulled from 'Cleland2007_eco_map'.
 #'
-#' See `Cleland_meta_df.Rmd` for details on making this dataset, although
-#' its a hot mess so good luck with that.
+#' See `Cleland_meta_df.Rmd` for details on generating this dataset. Not
+#' updated when data format was changed to 'sf'.
 #'
 #' @name Cleland_meta_df
 #' @docType data

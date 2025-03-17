@@ -15,8 +15,7 @@ KeyClelandCode(x, lvl = "province", long = F, rev = F)
 
 ScaleUpClelandCode(x, in_lvl = "subsection", out_lvl = "section")
 
-ScaleUpClelandName(x, in_lvl = "subsection", debug = F,
-  belt = "M332D")
+ScaleUpClelandName(x, in_lvl = "subsection", debug = F, belt = "M332D")
 
 NameClelandCode(code)
 
@@ -24,7 +23,7 @@ SnipSingleCharacter(v, side = "front")
 
 ScaleDownClelandCode(x, in_lvl = "province", out_lvl = "subsection")
 
-SubAsIntger(x, rev = F)
+SubAsIntger(x)
 }
 \description{
 Some functions that are required for package processing or just useful to have
@@ -32,18 +31,18 @@ when working with the ClelandEcoregions dataset.
 }
 \section{Functions}{
 \itemize{
-\item \code{KeyClelandCode}: Key function for the FIA codes
+\item \code{KeyClelandCode()}: Key function for the FIA codes
 
-\item \code{ScaleUpClelandCode}: Scales up the Cleland code
+\item \code{ScaleUpClelandCode()}: Scales up the Cleland code
 
-\item \code{ScaleUpClelandName}: Scales up Cleland name by 1 level
+\item \code{ScaleUpClelandName()}: Scales up Cleland name by 1 level
 
-\item \code{NameClelandCode}: Prints the Cleland subsection name for a code
+\item \code{NameClelandCode()}: Prints the Cleland subsection name for a code
 
-\item \code{SnipSingleCharacter}: Rrims a character by 1 character for each element
+\item \code{SnipSingleCharacter()}: Rrims a character by 1 character for each element
 
-\item \code{ScaleDownClelandCode}: Scales down Cleland code
+\item \code{ScaleDownClelandCode()}: Scales down Cleland code
 
-\item \code{SubAsIntger}: Cleland subsection integer key for .nc storage
+\item \code{SubAsIntger()}: Cleland subsection integer key for .nc storage
+
 }}
-

@@ -4,18 +4,19 @@
 \name{Cleland2007_eco_map}
 \alias{Cleland2007_eco_map}
 \title{Ecological subsection maps, from Cleland et al. (2007).}
-\format{A list of three SpatialPolygonDataFrames.
+\format{
+A list of three SpatialPolygonDataFrames.
 \describe{
   \item{province}{Province-level polygons}
   \item{sections}{Section-level polygons}
   \item{subsects}{Subsection-level polygons}
-}}
+}
+}
 \usage{
 Cleland2007_eco_map
 }
 \description{
-Requires `rgdal`, probably. Check the references and their online
-supplements for further details on the objects.
+Ecological subsection maps, from Cleland et al. (2007).
 }
 \references{
 Cleland, D.T., Freeouf, J.A., Keys, J.E., Nowacki, G.J., Carpenter, C.A.,
